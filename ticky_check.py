@@ -24,12 +24,11 @@ with open(sys.argv[1], 'r') as f:
 #        info_dict[result1[2]] = info_dict.get(result1[2],0) +1
     if re.search(user_pattern,line):
       result = re.search(user_pattern,line)
-      name = result[2]
-      if result[1].lower == 'error':
-        per_user[name[0]] = per_user.get(name[0],0) + 1
-      elif result[1].lower =='info':
-        per_user[name[1]] = per_user.get(name[1],0) + 1
-#  print(sorted(per_error_dict.items(), key=operator.itemgetter(1),reverse=True))
-# print('\n',error_dict)
-# print(info_dict)
+      if result[1].lower() == 'info':
+        per_user[result[2]] = per_user.get(result[2],0) + 1
+#      elif result[1].lower() == 'info':
+#        per_user[result[2]] = per_user.get(result[2],0) +1
 print(per_user)
+final_list = sorted(per_error_dict.items(), key=operator.itemgetter(1), reverse = True)
+final_list.insert(0,("Error","Count"))
+print(final_list)
