@@ -76,16 +76,6 @@ def details_per_user(line):
     new_list.insert(0,("Username","INFO", "ERROR"))
     return new_list
 
-# Adding a validation to check if the log file is provided or not.
-try:
-    fh = open(sys.argv[1])
-    fh.close()
-except IndexError:
-    print("\n\nPlease enter a log file path as well!\n\n")
-    sys.exit(1)
-except FileNotFoundError:
-    print("\n\nPlease enter the correct log file path!\n\n")
-    sys.exit(1)
 
 # Create a csv file based on the user_list and error_list.
 def write_to_csv():
@@ -108,4 +98,15 @@ def write_to_csv():
 
 
 if __name__ == '__main__':
+    # Adding a validation to check if the log file is provided or not.
+    try:
+        fh = open(sys.argv[1])
+        fh.close()
+    except IndexError:
+        print("\n\nPlease enter a log file path as well!\n\n")
+        sys.exit(1)
+    except FileNotFoundError:
+        print("\n\nPlease enter the correct log file path!\n\n")
+        sys.exit(1)
+        
     write_to_csv()
