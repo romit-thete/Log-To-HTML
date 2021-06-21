@@ -37,16 +37,16 @@ error_details_dict = {}
 error_dict = {}
 info_dict = {}
 user_pattern = r"ticky: (INFO|ERROR): ([\w' ]*|[\w' ]*\[#\d+\].*).\(([\w]+)\)"
-# result[0] --> The complete matched string
-# result[1] --> INFO|ERROR
-# result[2] --> Message (could be different for error and info)
-# result[3] --> UserId
+# result.group(0) --> The complete matched string
+# result.group(1) --> INFO|ERROR
+# result.group(2) --> Message (could be different for error and info)
+# result.group(3) --> UserId
 
 # Counts the number of errors and sort them in a descending order of count.
 def error_count(line):
     result = re.search(user_pattern, line)
-    if result[1].lower() == 'error':
-        error_details_dict[result[2]] = error_details_dict.get(result[2],0) + 1
+    if result.group(1).lower() == 'error':
+        error_details_dict[result.group(2)] = error_details_dict.get(result.group(2),0) + 1
     error_count_list = sorted(error_details_dict.items(), key=operator.itemgetter(1), reverse = True)
     error_count_list.insert(0,("Error","Count"))
     return error_count_list
@@ -54,10 +54,10 @@ def error_count(line):
 # Counts the number of info and error messages per user and sort by username.
 def details_per_user(line):
     result = re.search(user_pattern,line)
-    if result[1].lower() == 'info':
-        info_dict[result[3]] = info_dict.get(result[3],0) + 1
-    elif result[1].lower() == 'error':
-        error_dict[result[3]] = error_dict.get(result[3],0) + 1
+    if result.group(1).lower() == 'info':
+        info_dict[result.group(3)] = info_dict.get(result.group(3),0) + 1
+    elif result.group(1).lower() == 'error':
+        error_dict[result.group(3)] = error_dict.get(result.group(3),0) + 1
     new_list = sorted(info_dict.items(), key=operator.itemgetter(0))
 
     # The below code will add the error count per user in every tuple within the new_list.
