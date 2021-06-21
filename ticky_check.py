@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This program is one of the coolest examples of a day to day task.
 It basically checks for logs within a file and creates two reports:
@@ -29,7 +30,6 @@ Usage:
     Windows:    python ticky.py <logfile_name>
     Unix:       ./ticky.py <log_file_path>
 """
-#!/usr/bin/env python3
 
 import re, sys, operator, csv
 
@@ -108,5 +108,5 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print("\n\nPlease enter the correct log file path!\n\n")
         sys.exit(1)
-        
+
     write_to_csv()
